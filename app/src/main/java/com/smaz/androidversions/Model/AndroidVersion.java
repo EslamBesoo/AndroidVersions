@@ -1,52 +1,50 @@
 package com.smaz.androidversions.Model;
 
-/**
- * Created by eslam on 10/12/2016.
- */
+
 
 public class AndroidVersion {
-    private String android_name;
-    private String android_api;
-    private String android_ver;
-    private String android_img_url;
+    private String name;
+    private String api;
+    private String ver;
+    private String image;
 
 
-    public AndroidVersion(String android_name, String android_api, String android_ver, String android_img_url) {
-        this.android_name = android_name;
-        this.android_api = android_api;
-        this.android_ver = android_ver;
-        this.android_img_url = android_img_url;
+    public AndroidVersion(String mname, String mapi, String mver, String mimage) {
+        this.name = mname;
+        this.api = mapi;
+        this.ver = mver;
+        this.image =mimage;
     }
 
-    public void setAndroid_img_url(String android_img_url) {
-        this.android_img_url = android_img_url;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getAndroid_img_url() {
-        return android_img_url;
+    public String getImage() {
+        return image;
     }
 
-    public void setAndroid_api(String android_api) {
-        this.android_api = android_api;
+    public void setApi(String api) {
+        this.api = api;
     }
 
-    public String getAndroid_api() {
-        return android_api;
+    public String getApi() {
+        return api;
     }
 
-    public void setAndroid_name(String android_name) {
-        this.android_name = android_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAndroid_name() {
-        return android_name;
+    public String getName() {
+        return name;
     }
 
-    public void setAndroid_ver(String android_ver) {
-        this.android_ver = android_ver;
+    public void setVer(String ver) {
+        this.ver = ver;
     }
 
-    public String getAndroid_ver() {
-        return android_ver;
+    public String getVer() {
+        return ver;
     }
 }

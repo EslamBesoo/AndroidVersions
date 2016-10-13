@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.smaz.androidversions.Model.AndroidVersion;
+
 import com.smaz.androidversions.R;
+import com.smaz.androidversions.Version;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -17,11 +19,11 @@ import java.util.ArrayList;
  * Created by eslam on 10/12/2016.
  */
 
-public class AndroidVerionAdapter extends RecyclerView.Adapter<AndroidVerionAdapter.ViewHolder> {
+public class AndroidVersionAdapter extends RecyclerView.Adapter<AndroidVersionAdapter.ViewHolder> {
 
-    private ArrayList<AndroidVersion> androidVersions;
+    private ArrayList<Version> androidVersions;
     private Context context;
-    public AndroidVerionAdapter(Context context,ArrayList<AndroidVersion> androidVersions){
+    public AndroidVersionAdapter(Context context, ArrayList<Version> androidVersions){
 
         this.androidVersions =androidVersions;
         this.context = context;
@@ -36,17 +38,17 @@ public class AndroidVerionAdapter extends RecyclerView.Adapter<AndroidVerionAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.android_name.setText(androidVersions.get(position).getAndroid_name());
-        holder.android_api.setText(androidVersions.get(position).getAndroid_api());
-        holder.android_ver.setText(androidVersions.get(position).getAndroid_ver());
-
+        holder.android_name.setText(androidVersions.get(position).getName());
+        holder.android_api.setText(androidVersions.get(position).getApiLevel());
+        holder.android_ver.setText( androidVersions.get(position).getVersion().toString());
+        Picasso.with(context).load(androidVersions.get(position).getImage()).resize(120,120).into(holder.android_img);
 
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return androidVersions.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -57,10 +59,10 @@ public class AndroidVerionAdapter extends RecyclerView.Adapter<AndroidVerionAdap
 
         public ViewHolder(View view) {
             super(view);
-            android_name = (TextView)view.findViewById(R.id.android_name);
-            android_img = (ImageView)view.findViewById(R.id.android_img);
-            android_api = (TextView)view.findViewById(R.id.android_api);
-            android_ver = (TextView)view.findViewById(R.id.android_ver);
+            android_name = (TextView)view.findViewById(R.id.name);
+          android_img = (ImageView)view.findViewById(R.id.image);
+            android_api = (TextView)view.findViewById(R.id.api);
+            android_ver = (TextView)view.findViewById(R.id.ver);
 
 
         }

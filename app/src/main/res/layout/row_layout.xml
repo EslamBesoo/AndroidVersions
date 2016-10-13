@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/android_img"/>
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/image"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/android_api"
-            android:textSize="30sp"/>
+            android:id="@+id/api"
+            android:textSize="15sp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/android_name"
-            android:textSize="30sp"/>
+            android:id="@+id/name"
+            android:textSize="15sp"/>
 
     </LinearLayout>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/android_ver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ver"
         android:textStyle="bold"
-        android:textSize="50sp"/>
+        android:textSize="30sp"/>
 
 
 </LinearLayout>
