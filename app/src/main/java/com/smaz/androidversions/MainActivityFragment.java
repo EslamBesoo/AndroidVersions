@@ -1,9 +1,9 @@
 package com.smaz.androidversions;
 
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,12 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.gson.JsonIOException;
 import com.smaz.androidversions.Adapters.AndroidVersionAdapter;
 import com.smaz.androidversions.Model.AndroidVersion;
 
-
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,16 +30,13 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
     private RecyclerView recyclerView;
-    private ArrayList<AndroidVersion> data;
+    ArrayList<AndroidVersion> data;
     private AndroidVersionAdapter adapter;
 
     public MainActivityFragment() {
@@ -171,13 +168,59 @@ private String [] getData (String jsonStr) throws JSONException {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException ignored) {
+
+                    }
+                }
             }
+
             return jsonStr;
         }
 
         @Override
         protected void onPostExecute(String strings) {
-            Log.i("Data is: " , strings);
+            super.onPostExecute(strings);
+            try {
+                JSONObject jsonObject = new JSONObject(strings);
+                String data = jsonObject.getString("android");
+                JSONArray array = new JSONArray(data);
+                JSONObject object = array.getJSONObject(1);
+                String data2 = object.getString("versions");
+                JSONArray array1 = new JSONArray(data2);
+                ArrayList<AndroidVersion> versionArrayList = new ArrayList<AndroidVersion>();
+                for (int i = 0; i < array1.length(); i++) {
+                    JSONObject jsonPart = array1.getJSONObject(i);
+                    String name = "";
+                    String api = "";
+                    String ver = "";
+                    String image = "";
+                    name = jsonPart.getString("name");
+                    api = jsonPart.getString("api_level");
+                    ver = jsonPart.getString("version");
+                    image = jsonPart.getString("image");
+
+
+                    AndroidVersion version = new AndroidVersion(name, api, ver, image);
+                    versionArrayList.add(version);
+
+                }
+
+                adapter = new AndroidVersionAdapter(getContext(), versionArrayList);
+                recyclerView.setAdapter(adapter);
+
+
+                Log.i("Data is : ", array1.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 }

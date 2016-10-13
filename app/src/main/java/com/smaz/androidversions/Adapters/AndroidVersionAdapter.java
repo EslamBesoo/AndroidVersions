@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+import com.smaz.androidversions.Model.AndroidVersion;
 import com.smaz.androidversions.R;
-import com.smaz.androidversions.Version;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,9 +20,10 @@ import java.util.ArrayList;
 
 public class AndroidVersionAdapter extends RecyclerView.Adapter<AndroidVersionAdapter.ViewHolder> {
 
-    private ArrayList<Version> androidVersions;
+    private ArrayList<AndroidVersion> androidVersions;
     private Context context;
-    public AndroidVersionAdapter(Context context, ArrayList<Version> androidVersions){
+
+    public AndroidVersionAdapter(Context context, ArrayList<AndroidVersion> androidVersions) {
 
         this.androidVersions =androidVersions;
         this.context = context;
@@ -39,9 +39,9 @@ public class AndroidVersionAdapter extends RecyclerView.Adapter<AndroidVersionAd
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         holder.android_name.setText(androidVersions.get(position).getName());
-        holder.android_api.setText(androidVersions.get(position).getApiLevel());
-        holder.android_ver.setText( androidVersions.get(position).getVersion().toString());
-        Picasso.with(context).load(androidVersions.get(position).getImage()).resize(120,120).into(holder.android_img);
+        holder.android_api.setText(androidVersions.get(position).getApi());
+        holder.android_ver.setText(androidVersions.get(position).getVer());
+        Picasso.with(context).load(androidVersions.get(position).getImage()).resize(100, 100).into(holder.android_img);
 
 
     }
