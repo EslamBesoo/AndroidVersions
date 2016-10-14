@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,8 +34,8 @@ import java.util.ArrayList;
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
-    private RecyclerView recyclerView;
     ArrayList<AndroidVersion> data;
+    private RecyclerView recyclerView;
     private AndroidVersionAdapter adapter;
 
     public MainActivityFragment() {
@@ -164,8 +163,6 @@ private String [] getData (String jsonStr) throws JSONException {
                 jsonStr = buffer.toString();
             } catch (ProtocolException e) {
                 e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -197,10 +194,10 @@ private String [] getData (String jsonStr) throws JSONException {
                 ArrayList<AndroidVersion> versionArrayList = new ArrayList<AndroidVersion>();
                 for (int i = 0; i < array1.length(); i++) {
                     JSONObject jsonPart = array1.getJSONObject(i);
-                    String name = "";
-                    String api = "";
-                    String ver = "";
-                    String image = "";
+                    String name;
+                    String api;
+                    String ver;
+                    String image;
                     name = jsonPart.getString("name");
                     api = jsonPart.getString("api_level");
                     ver = jsonPart.getString("version");
