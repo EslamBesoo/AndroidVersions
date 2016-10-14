@@ -14,6 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.smaz.androidversions.Adapters.AndroidVersionAdapter;
 import com.smaz.androidversions.Model.AndroidVersion;
 
@@ -78,34 +82,62 @@ loadJSON();
     }
 
     private void loadJSON(){
-      /*  RequestInterface client = JSONResponse.createService(RequestInterface.class);
+        String url = "https://gist.githubusercontent.com/anonymous/0adcc7e908f7bf2dd9380a89f13c9b28/raw/33c9520e0b9c38d4a3f56e6c8fb7a74d27dd87c4/blob.json";
 
-        // Fetch and print a list of the contributors to this library.
-        Call<List<Version>> call =
-                (Call<List<Version>>) client.versions("image",5.0,2,"name");
-
-        try {
-
-            List<Version> versions = call.execute().body();
-            ArrayList<Version> versionArrayList = new ArrayList<Version>();
-            for (int i = 0 ;i<versions.size();i++) {
-                Version version = new Version();
-                version =versions.get(i);
-
-                versionArrayList.add(version);
-
-            }
-            adapter = new AndroidVersionAdapter(getContext(),versionArrayList);
-            recyclerView.setAdapter(adapter);
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
 
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
 
-        } catch (IOException e) {
-            // handle errors
-        }
-*/
-        FetchTask task = new FetchTask();
-        task.execute();
+                            String data = response.getString("android");
+                            JSONArray array = new JSONArray(data);
+                            JSONObject object = array.getJSONObject(1);
+                            String data2 = object.getString("versions");
+                            JSONArray array1 = new JSONArray(data2);
+                            ArrayList<AndroidVersion> versionArrayList = new ArrayList<AndroidVersion>();
+                            for (int i = 0; i < array1.length(); i++) {
+                                JSONObject jsonPart = array1.getJSONObject(i);
+                                String name;
+                                String api;
+                                String ver;
+                                String image;
+                                name = jsonPart.getString("name");
+                                api = jsonPart.getString("api_level");
+                                ver = jsonPart.getString("version");
+                                image = jsonPart.getString("image");
+
+
+                                AndroidVersion version = new AndroidVersion(name, api, ver, image);
+                                versionArrayList.add(version);
+
+                            }
+
+                            adapter = new AndroidVersionAdapter(getContext(), versionArrayList);
+                            recyclerView.setAdapter(adapter);
+
+
+                            Log.i("Data is : ", array1.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+
+                    }
+                });
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsObjRequest);
+
+
+
+
 
 
     }

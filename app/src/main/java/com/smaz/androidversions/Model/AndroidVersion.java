@@ -16,35 +16,35 @@ public class AndroidVersion {
         this.image =mimage;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getImage() {
         return image;
     }
 
-    public void setApi(String api) {
-        this.api = api;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getApi() {
         return api;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setApi(String api) {
+        this.api = api;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setVer(String ver) {
-        this.ver = ver;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getVer() {
         return ver;
+    }
+
+    public void setVer(String ver) {
+        this.ver = ver;
     }
 }
